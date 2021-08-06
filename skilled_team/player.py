@@ -1,5 +1,7 @@
 from pandas import DataFrame
 
+from .utils import get_config
+
 
 class Player:
     def __init__(self, pid, first_name, last_name, sk_list):
@@ -18,23 +20,18 @@ class Player:
 
     @staticmethod
     def load_players_from_csv(input_data: DataFrame) -> dict:
-        #header = input_data.columns.values
         player_list = dict()
 
-        """
-        Refactor to make this part dynamic
-        hard coding the indexes
-        """
-        pid = 0
-        fn = 1
-        ln = 2
-        sklz = [3, 4, 5, 6, 7, 8]
-        tid = 9
+        app_config = get_config()
+        pid = app_config['skilled_team']['player_id_index']
+        fn = app_config['skilled_team']['first_name']
+        ln = app_config['skilled_team']['last_name']
+        skills = app_config['skilled_team']['skills']['indexes']
 
         for index, row in input_data.iterrows():
             sk_list = []
 
-            for idx in sklz:
+            for idx in skills:
                 sk_list.append(row[idx])
 
             player = Player(pid=row[pid], first_name=row[fn], last_name=row[ln], sk_list=sk_list)
