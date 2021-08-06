@@ -2,16 +2,19 @@ from pandas import DataFrame
 
 
 class Player:
-    def __init__(self, eid, first_name, last_name, sk_list):
-        self.eid = eid
+    def __init__(self, pid, first_name, last_name, sk_list):
+        self.pid = pid
         self.first_name = first_name
         self.last_name = last_name
         self.sk_list = sk_list
         self.sk_total = sum(sk_list)
 
     def to_string(self):
-        print(f"eid: {self.eid} - first name: {self.first_name} - last name: {self.last_name} - sk list: {self.sk_list} - "
-              f"sk total: {self.sk_total}")
+        return f"pid: {self.pid} - " \
+               f"first_name: {self.first_name} - " \
+               f"last_name: {self.last_name} - " \
+               f"sk_list: {self.sk_list} - " \
+               f"sk_total: {self.sk_total}"
 
     @staticmethod
     def load_players_from_csv(input_data: DataFrame) -> dict:
@@ -22,7 +25,7 @@ class Player:
         Refactor to make this part dynamic
         hard coding the indexes
         """
-        eid = 0
+        pid = 0
         fn = 1
         ln = 2
         sklz = [3, 4, 5, 6, 7, 8]
@@ -34,12 +37,12 @@ class Player:
             for idx in sklz:
                 sk_list.append(row[idx])
 
-            player = Player(eid=row[eid], first_name=row[fn], last_name=row[ln], sk_list=sk_list)
+            player = Player(pid=row[pid], first_name=row[fn], last_name=row[ln], sk_list=sk_list)
 
-            if player.eid in player_list:
-                exit(f"Found duplicate in player data {player.eid}")
+            if player.pid in player_list:
+                exit(f"Found duplicate in player data {player.pid}")
 
-            player_list[player.eid] = player
+            player_list[player.pid] = player
 
         return player_list
 

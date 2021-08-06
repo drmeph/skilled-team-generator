@@ -1,0 +1,3 @@
+skilled_team:
+  balancer:
+    min_val_sk_set_size: 3
