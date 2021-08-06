@@ -1,27 +1,23 @@
 from pandas import DataFrame
 
-from .stats_utils import find_weights
+from .utils import find_weights, get_config
 
 
 class GameStats:
     def __init__(self, players: DataFrame):
-        """
-       Refactor to make this part dynamic
-       hard coding the indexes
-       """
-        sklz = [3, 4, 5, 6, 7, 8]
-        self.min_val_sk_set_size = 2
+        app_config = get_config()
+        skills = app_config['skilled_team']['skills']['indexes']
+        self.players_per_team = app_config['skilled_team']['players_per_team']
+        self.min_val_sk_set_size = app_config['skilled_team']['balancer']['min_val_sk_set_size']
+        self.one_side_validation = app_config['skilled_team']['one_size_validation']
 
         self.total_players = players.shape[0]
-        """
-        Move the number of player per team to the config file
-        """
-        div = self.total_players // 5
-        mod = self.total_players % 5
+        div = self.total_players // self.players_per_team
+        mod = self.total_players % self.players_per_team
 
         self.total_teams = div if mod == 0 else div + 1
 
-        sums = players.iloc[:, sklz].sum()
+        sums = players.iloc[:, skills].sum()
         size_sk = sums.to_list()
         avg_sk_list = sums.divide(self.total_teams).to_list()
 

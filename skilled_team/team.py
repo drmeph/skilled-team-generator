@@ -5,6 +5,8 @@ from .player import Player
 
 
 class Team:
+    player_list: dict
+
     def __init__(self, player_list: dict, stats: GameStats):
         self.player_list = player_list
         self.sk_total_list = None

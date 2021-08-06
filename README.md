@@ -1,6 +1,12 @@
 # Skilled Team Generator
 Given N players, ranked according to M skills, build a T teams as even as possible
 
+## Pre-requisite
+
+## Get Started
+### Configuration
+### Run Generator
+
 ## Data Structures
 ### Player
 |Attributes|Type|Description|
@@ -27,3 +33,4 @@ Given N players, ranked according to M skills, build a T teams as even as possib
 |avg_sk_list|list( float )||
 |sk_weight_list|list( int )||
 |avg_team_weight_sk_total|float|the average|
+|players_per_team|int|Number of players per team|
