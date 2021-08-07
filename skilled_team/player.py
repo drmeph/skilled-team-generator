@@ -18,6 +18,9 @@ class Player:
                f"sk_list: {self.sk_list} - " \
                f"sk_total: {self.sk_total}"
 
+    def to_json(self):
+        return self.__dict__
+
     @staticmethod
     def load_players_from_csv(input_data: DataFrame) -> dict:
         player_list = dict()

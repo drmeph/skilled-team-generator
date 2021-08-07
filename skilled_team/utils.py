@@ -38,3 +38,10 @@ def get_min_and_max_weighted_sk_total_team(teams: list) -> (int, int):
 def get_config() -> yaml:
     stream = open(f"app-config.yml", 'r')
     return yaml.load(stream, Loader=yaml.Loader)
+
+
+def complex_handler(obj):
+    if hasattr(obj, 'to_json'):
+        return obj.to_json()
+    else:
+        raise TypeError('Object of type %s with value of %s is not JSON serializable' % (type(obj), repr(obj)))

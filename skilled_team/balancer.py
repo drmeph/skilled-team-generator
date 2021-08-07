@@ -1,15 +1,16 @@
 import random
+import logging
 import numpy as np
 
 from operator import sub, abs
 
 from .team import Team
-from .game_stats import GameStats
+from .stats import Stats
 from .utils import get_config
 
 
 class Balancer:
-    def __init__(self, teams: list, stats: GameStats):
+    def __init__(self, teams: list, stats: Stats):
         self.teams = teams
         self.stats = stats
 
@@ -65,19 +66,19 @@ class Balancer:
             if len(left_team.player_list.keys()) < self.stats.players_per_team or \
                     len(right_team.player_list.keys()) < self.stats.players_per_team:
 
-                print("Swap successful for small team! Bravo!\n")
-                print(f"Old Values:\n"
-                      f"left_team_old_sk_total_list: {left_team_old_sk_total_list}\n"
-                      f"right_team_old_sk_total_list: {right_team_old_sk_total_list}\n"
-                      f"left_team_old_weighted_sk_total: {left_team_old_weighted_sk_total}\n"
-                      f"right_team_old_weighted_sk_total: {right_team_old_weighted_sk_total}")
-                print(f"New Values:\n "
-                      f"left_team_sk_total_list: {left_team.sk_total_list}\n"
-                      f"right_team_sk_total_list: {right_team.sk_total_list}\n"
-                      f"left_team_weighted_sk_total: {left_team.weighted_sk_total}\n"
-                      f"right_team_weighted_sk_total: {right_team.weighted_sk_total}")
-
+                logging.debug("Swap successful for small team! Bravo!\n")
+                logging.debug(f"Old Values:\n"
+                              f"left_team_old_sk_total_list: {left_team_old_sk_total_list}\n"
+                              f"right_team_old_sk_total_list: {right_team_old_sk_total_list}\n"
+                              f"left_team_old_weighted_sk_total: {left_team_old_weighted_sk_total}\n"
+                              f"right_team_old_weighted_sk_total: {right_team_old_weighted_sk_total}")
+                logging.debug(f"New Values:\n "
+                              f"left_team_sk_total_list: {left_team.sk_total_list}\n"
+                              f"right_team_sk_total_list: {right_team.sk_total_list}\n"
+                              f"left_team_weighted_sk_total: {left_team.weighted_sk_total}\n"
+                              f"right_team_weighted_sk_total: {right_team.weighted_sk_total}")
             count_success += 1
+            count_failure = 0
 
         return count_success, count_failure
 
