@@ -21,7 +21,13 @@ class Stats:
         avg_sk_list = sums.divide(self.total_teams).to_list()
 
         self.avg_sk_list = avg_sk_list
-        self.sk_weight_list = find_weights(size_list=size_sk)
+        manual_weights = app_config['skilled_team']['skills']['manual_weights']
+
+        if manual_weights is not None and type(manual_weights) is list and\
+                len(manual_weights) == len(skills):
+            self.sk_weight_list = manual_weights
+        else:
+            self.sk_weight_list = find_weights(size_list=size_sk)
 
         self.avg_team_weighted_sk_total = None
         self.successful_swaps = None
