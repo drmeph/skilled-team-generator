@@ -1,6 +1,8 @@
 # Skilled Team Generator
 Given N players, ranked according to M skills, build a T teams as even as possible
 
+![](skilled-team-logo.png)
+
 This project combine 2 techniques:
 * [Bin Packing or Multiple Knapsacks](https://pypi.org/project/binpacking/) to create a first set of teams only balanced based on their <em>total skill value</em>:
 
