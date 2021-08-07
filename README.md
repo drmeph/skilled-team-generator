@@ -33,7 +33,7 @@ The [configuration file](app-config.yml) can be found in the root directory of t
 |skilled_team.balancer.max_failures|int|Maximum amount of consecutive failures for the app to stop the balancing process|
 
 ### Input & Output
-In order to run the <em>skilled team generator</em> requires a csv file with the data containing the following fields.
+In order to run the <em>skilled team generator</em> requires a csv file with the data containing the following fields. you can take a look at and used [the sample data](data/sample-data.csv) in the data directory
 > IMPORTANT: ALL FIELDS ARE REQUIRED
 
 |Attributes|Type|Description|
