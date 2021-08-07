@@ -72,10 +72,12 @@ python team_generator.py --output=[path_to_output_file] path_to_input_file
 ### <a name="stats">Stats</a>
 |Attributes|Type|Description|
 | --- | --- | --- |
-|total_players|int||
-|total_teams|int||
+|total_players|int|Total number of players|
+|total_teams|int|Total number of teams|
 |min_val_sk_set_size|int|The minimum amount of skills used for validation|
-|avg_sk_list|list( float )||
-|sk_weight_list|list( int )||
-|avg_team_weight_sk_total|float|the average|
+|one_side_validation|bool|True: One side validation, False: Two sides validation|
+|avg_sk_list|list( float )|List of average value calculated per skill|
+|sk_weight_list|list( int )|List of weight per skill calculated base on the average frequency of each skill within the dataset|
+|avg_team_weight_sk_total|float|the average of weighted skill total across all teams|
 |players_per_team|int|Number of players per team|
+|successful_swaps|int|The amount of successful swaps applied to the team's list|
