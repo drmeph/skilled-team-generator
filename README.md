@@ -45,7 +45,7 @@ In order to run the <em>skilled team generator</em> requires a csv file with the
 
 The <em>skilled team generator</em> will then generate 2 json output files:
 * output: contains the list of teams
-* stats-output: contains [the stats](#a-namestatsstatsa) compiled and used by the app to create the teams
+* stats-output: contains [the stats](#stats) compiled and used by the app to create the teams
 
 ### Run Generator
 ```python
