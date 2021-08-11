@@ -1,6 +1,6 @@
 skilled_team:
-  log_level: 'INFO'
-  one_size_validation: False
+  log_level: 'DEBUG'
+  one_size_validation: True
   player_id_index: 0
   first_name: 1
   last_name: 2

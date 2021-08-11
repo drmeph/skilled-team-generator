@@ -1,2 +1,2 @@
 # Balancing Algorithm
-![balancing-part1](balance-part1.png)
+![balancing](balance-part1.png)
