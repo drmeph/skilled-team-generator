@@ -83,3 +83,6 @@ python team_generator.py --output=[path_to_output_file] path_to_input_file
 |avg_team_weight_sk_total|float|the average of weighted skill total across all teams|
 |players_per_team|int|Number of players per team|
 |successful_swaps|int|The amount of successful swaps applied to the team's list|
+
+## Balancing Algorithm
+To learn more about the balancing algorithm, check [the documentation](doc/Balancing.md)
