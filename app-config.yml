@@ -10,4 +10,4 @@ skilled_team:
   players_per_team: 5
   balancer:
     min_val_sk_set_size: 3
-    max_failures : 100000
+    max_failures : 1000

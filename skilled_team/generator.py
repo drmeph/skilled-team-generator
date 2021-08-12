@@ -10,6 +10,14 @@ from .balancer import Balancer
 def generate_skilled_team(player_list: dict, stats: Stats) -> list:
     logging.info("Initializing teams...")
     teams = initialize_teams(player_list=player_list, stats=stats)
+
+    for team in teams:
+        logging.debug(team.to_string())
+
+        for key in team.player_list.keys():
+            player = team.player_list[key]
+            logging.debug(player.to_string())
+
     balance_teams(teams=teams, stats=stats)
 
     return teams
@@ -47,6 +55,6 @@ def balance_teams(teams: list, stats: Stats):
 
     if count_success > 0:
         for team in balancer.teams:
-            logging.debug(team.to_string())
+            logging.info(team.to_string())
     else:
         logging.warning("Balancing failed")
