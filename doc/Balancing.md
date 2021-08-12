@@ -59,6 +59,7 @@ Stats:
 
 ### Swapping players
 2 random players are selected from 2 random teams. The players are swapped then the teams' stats are recalculated.
+
 ![team-part2](teams-part2.png)
 
 Swapping player 13 from team 2 and player 11 from team 3:
@@ -97,18 +98,18 @@ Validation:
 
 1) weighted_sk_total:
 
-   The avg weighted total across all teams is 271.3333333333333. In this example we can see that the weighted total improved, this it's value got closer than the avg value. However, the values for the second team has degraded. But since one side validation is enabled this swap is considered successful.
-   > If one side validation was disabled, both team's weighted_sk_total must improve
+The avg weighted total across all teams is 271.3333333333333. In this example we can see that the weighted total improved, this it's value got closer than the avg value. However, the values for the second team has degraded. But since one side validation is enabled this swap is considered successful.
+> If one side validation was disabled, both team's weighted_sk_total must improve
    
 2) sk_total_list and min_val_sk_set_size:
 
-   Since one side validation is enabled, we only need to make sure that team 2 pass the validation. If we compare the new sk_list to the avg_sk_list 
+Since one side validation is enabled, we only need to make sure that team 2 pass the validation. If we compare the new sk_list to the avg_sk_list 
    
    * Old : [16, 15, 10, 13, 15, 20]
    * New : [14, 17, 12, 15, 13, 17]
    * Avg : [13.333333333333334, 16.333333333333332, 13.666666666666666, 13.666666666666666, 15.333333333333334, 16.666666666666668]
    
-   We can see that 3 skills improved, and the min_val_sk_set_size = 3 dictate that at least 3 skills must improve to pass the second step of validation.
+We can see that 3 skills improved, and the min_val_sk_set_size = 3 dictate that at least 3 skills must improve to pass the second step of validation.
 
 
 3) The swap is successful
