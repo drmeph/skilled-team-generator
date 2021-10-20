@@ -24,6 +24,17 @@ class Team:
     def to_json(self):
         return self.__dict__
 
+    def to_csv(self):
+        rows = []
+
+        for key in self.player_list.keys():
+            player = self.player_list[key]
+            row = [self.team_id, player.pid, player.first_name, player.last_name]
+            row = row + player.sk_list + player.extra_fields
+            rows.append(row)
+
+        return rows, [self.team_id] + self.sk_total_list
+
     @staticmethod
     def get_bulk_teams(raw_team_list: list, player_list: dict, stats: Stats) -> list:
         team_list = []

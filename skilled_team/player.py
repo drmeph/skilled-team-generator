@@ -4,12 +4,13 @@ from .utils import get_config
 
 
 class Player:
-    def __init__(self, pid, first_name, last_name, sk_list):
+    def __init__(self, pid, first_name, last_name, sk_list, extra_fields=[]):
         self.pid = pid
         self.first_name = first_name
         self.last_name = last_name
         self.sk_list = sk_list
         self.sk_total = sum(sk_list)
+        self.extra_fields = extra_fields
 
     def to_string(self):
         return f"pid: {self.pid} - " \
@@ -30,14 +31,20 @@ class Player:
         fn = app_config['skilled_team']['first_name']
         ln = app_config['skilled_team']['last_name']
         skills = app_config['skilled_team']['skills']['indexes']
+        extra_fields = app_config['skilled_team']['extra_field']
 
         for index, row in input_data.iterrows():
             sk_list = []
+            ext_fields = []
 
             for idx in skills:
                 sk_list.append(row[idx])
 
-            player = Player(pid=row[pid], first_name=row[fn], last_name=row[ln], sk_list=sk_list)
+            for idx in extra_fields:
+                ext_fields.append(row[idx])
+
+            player = Player(pid=row[pid], first_name=row[fn], last_name=row[ln], sk_list=sk_list,
+                            extra_fields=ext_fields)
 
             if player.pid in player_list:
                 exit(f"Found duplicate in player data {player.pid}")

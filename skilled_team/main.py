@@ -2,6 +2,7 @@ import pandas as pd
 import logging
 import sys
 import json
+import csv
 
 from os import path
 
@@ -10,6 +11,7 @@ from .stats import Stats
 from .generator import generate_skilled_team
 from .option_handler import default_options
 from .utils import complex_handler, get_config
+from .csv_formatter import get_rows_from_teams
 
 
 def main():
@@ -24,6 +26,7 @@ def main():
     """
     app_config = get_config()
     logging.basicConfig(level=app_config['skilled_team']['log_level'])
+    output_format = app_config['output']['format']
 
     if len(args) < 2:
         logging.error("Missing parameters!")
@@ -31,8 +34,10 @@ def main():
         sys.exit()
 
     input_file = args[1]
-    output_file = f"data/{opts.output}"
-    output_stat_file = f"data/stats-{opts.output}"
+    output_file = f"data/{opts.output}.json"
+    output_team_totals_file = f"data/totals-{opts.output}.csv"
+    output_stat_file = f"data/stats-{opts.output}.json"
+    output_csv_file = f"data/{opts.output}.csv"
 
     # Read from CSV file
     if not path.exists(input_file):
@@ -41,8 +46,14 @@ def main():
     if path.exists(output_file):
         sys.exit('Output file already exists, please use another name of delete the file.')
 
-    if path.exists(output_stat_file):
-        sys.exit('Stat output file already exists, please use another name of delete the file.')
+    if output_format == 'json':
+        if path.exists(output_stat_file):
+            sys.exit('Stat output file already exists, please use another name of delete the file.')
+    else:
+        if path.exists(output_csv_file):
+            sys.exit('output file already exists, please use another name of delete the file.')
+        if path.exists(output_team_totals_file):
+            sys.exit('Team total output file already exists, please use another name of delete the file.')
 
     logging.info("Loading Players...")
 
@@ -51,8 +62,23 @@ def main():
     stats = Stats(input_data)
     teams = generate_skilled_team(player_list=player_list, stats=stats)
 
-    with open(output_file, 'w') as of:
-        of.write(json.dumps(teams, default=complex_handler))
+    if output_format == 'json':
+        with open(output_file, 'w') as of:
+            of.write(json.dumps(teams, default=complex_handler))
+    else:
+        rows, total_rows = get_rows_from_teams(teams=teams)
+
+        with open(output_csv_file, 'w', newline='', encoding='utf-8') as of:
+            csv_of = csv.writer(of, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+
+            for row in rows:
+                csv_of.writerow(row)
+
+        with open(output_team_totals_file, 'w', newline='', encoding='utf-8') as tof:
+            csv_of = csv.writer(tof, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+
+            for row in total_rows:
+                csv_of.writerow(row)
 
     with open(output_stat_file, 'w') as osf:
         osf.write(json.dumps(stats, default=complex_handler))
